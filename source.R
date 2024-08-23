@@ -24,4 +24,10 @@ mytok <- oauth2.0_token(
 
 resp <- GET(glue("https://www.strava.com/api/v3/athlete/activities?per_page=200"), config(token = mytok))
 
-dat <- fromJSON(rawToChar(resp$content))
+raw <- fromJSON(rawToChar(resp$content))
+
+
+dat <- raw %>%
+  mutate(across(c(start_date_local),function(x) as.POSIXct(gsub('T|Z',' ',x))),
+         start_date = as.Date(start_date_local))
+
