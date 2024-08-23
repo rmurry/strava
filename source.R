@@ -10,18 +10,18 @@ strava_endpoint <- oauth_endpoint(
 )
 
 myapp <- oauth_app(
-  "strava", 
-  key = 126618,  # <- change this to your strava ID 
-  secret = "6d4056b400b9042651c93c85fbf5cfbffe6e0694" # <- change this to your client ID
+  "strava", # internal name, not related to api app name in strava
+  key = 126618,  # client ID
+  secret = Sys.getenv('STRAVA_SECRET') # client secret
 )
 
 mytok <- oauth2.0_token(
   endpoint = strava_endpoint, 
   app = myapp,
-  scope = c("activity:read"), # somehow it does not work with multiple scopes
+  scope = c("activity:read"),
   cache = TRUE
 )
 
-resp <- GET("https://www.strava.com/api/v3/athlete/activities", config(token = mytok))
+resp <- GET("https://www.strava.com/api/v3/athlete/activities", config(token = mytok),add_headers(per_page = 1000))
 
 dat <- fromJSON(rawToChar(resp$content))
