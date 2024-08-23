@@ -39,5 +39,8 @@ dat <- raw %>%
                              average_heartrate > 136 & average_heartrate < 149 ~ 'Zone 2',
                              average_heartrate > 149 & average_heartrate < 161 ~ 'Zone 3',
                              average_heartrate > 161 & average_heartrate < 174 ~ 'Zone 4',
-                             TRUE ~ 'Zone 5'))
+                             TRUE ~ 'Zone 5')) %>%
+  select(-c(athlete,map,start_latlng,end_latlng))
+
+write.csv(dat,'strava.csv')
         
