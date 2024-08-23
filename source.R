@@ -29,5 +29,7 @@ raw <- fromJSON(rawToChar(resp$content))
 
 dat <- raw %>%
   mutate(across(c(start_date_local),function(x) as.POSIXct(gsub('T|Z',' ',x))),
-         start_date = as.Date(start_date_local))
+         start_date = as.Date(start_date_local),
+         minutes = moving_time / 60, #seconds to minutes
+         miles = distance / 1609.34) #meters to miles
 
