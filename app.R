@@ -5,8 +5,10 @@ library(shinyWidgets)
 library(shinyjs)
 library(glue)
 library(highcharter)
+library(dplyr)
 
-dat <- read.csv('strava.csv')
+dat <- read.csv('strava.csv') %>%
+  mutate(start_date = as.Date(start_date))
 
 ui <- dashboardPage(
   dashboardHeader(title = 'Strava Activity'),
