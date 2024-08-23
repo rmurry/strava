@@ -5,8 +5,9 @@ account: rmurry
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 12509373
-bundleId: 9019664
+bundleId: 9019785
 url: https://rmurry.shinyapps.io/Strava_Dashboard/
 version: 1
 asMultiple: FALSE
 asStatic: FALSE
+ignoredFiles: .httr-oauth|source.R
