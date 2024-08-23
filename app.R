@@ -6,7 +6,7 @@ library(shinyjs)
 library(glue)
 library(highcharter)
 
-source('source.R')
+dat <- read.csv('strava.csv')
 
 ui <- dashboardPage(
   dashboardHeader(title = 'Strava Activity'),
