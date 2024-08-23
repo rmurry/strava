@@ -1,12 +1,6 @@
 library(dplyr)
 library(httr)
 library(jsonlite)
-library(lubridate)
-library(glue)
-
-beg_of_year <- as.POSIXct('2024-01-01',format = '%Y-%m-%d %HH:%MM:%SS')
-
-as.POSIXct()
 
 strava_endpoint <- oauth_endpoint(
   request = NULL,
