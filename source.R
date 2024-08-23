@@ -1,6 +1,7 @@
 library(dplyr)
 library(httr)
 library(jsonlite)
+library(lubridate)
 
 strava_endpoint <- oauth_endpoint(
   request = NULL,
@@ -30,6 +31,13 @@ raw <- fromJSON(rawToChar(resp$content))
 dat <- raw %>%
   mutate(across(c(start_date_local),function(x) as.POSIXct(gsub('T|Z',' ',x))),
          start_date = as.Date(start_date_local),
+         week_of = ceiling_date(start_date,unit = 'week'),
          minutes = moving_time / 60, #seconds to minutes
-         miles = distance / 1609.34) #meters to miles
-
+         miles = distance / 1609.34, #meters to miles
+         hr_zone = case_when(is.na(average_heartrate) ~ 'NA',
+                             average_heartrate < 136 ~ 'Zone 1',
+                             average_heartrate > 136 & average_heartrate < 149 ~ 'Zone 2',
+                             average_heartrate > 149 & average_heartrate < 161 ~ 'Zone 3',
+                             average_heartrate > 161 & average_heartrate < 174 ~ 'Zone 4',
+                             TRUE ~ 'Zone 5'))
+        
