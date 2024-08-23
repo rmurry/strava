@@ -6,6 +6,8 @@ library(shinyjs)
 library(glue)
 library(highcharter)
 
+source(source.R)
+
 ui <- dashboardPage(
   dashboardHeader(title = 'Strava Activity'),
   dashboardSidebar(
